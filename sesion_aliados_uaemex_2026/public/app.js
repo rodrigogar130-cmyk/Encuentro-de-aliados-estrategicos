@@ -8,8 +8,8 @@ const staticNotice=document.getElementById('staticNotice');
 const requiredFields=['nombre','apellidos','empresa','cargo','sector','correo'];
 const errorMessages={nombre:'Ingresa tu nombre.',apellidos:'Ingresa tus apellidos.',empresa:'Ingresa el nombre de tu empresa u organización.',cargo:'Ingresa tu cargo.',sector:'Selecciona un sector.',correo:'Ingresa un correo electrónico válido.',telefono:'Ingresa un teléfono válido o deja este campo vacío.',confirmacion:'Selecciona una opción de asistencia.',privacidad:'Debes aceptar el aviso de privacidad para continuar.'};
 const APPS_SCRIPT_WEB_APP_URL='https://script.google.com/macros/s/AKfycbzXpB0cj2a7BR3ZMQ1H7ZOU3Z5D3xrEBMiqUydedPki0mIR8idwBAZubz8INsjyR43M/exec';
-// Publicación bloqueada hasta verificar el servicio y aprobar el aviso de privacidad.
-const ENABLE_PUBLIC_REGISTRATION=false;
+// Recepción pública habilitada: los datos se envían por POST a Google Apps Script.
+const ENABLE_PUBLIC_REGISTRATION=true;
 const scriptReady=ENABLE_PUBLIC_REGISTRATION&&/^https:\/\/script\.google\.com\/macros\/s\/[a-zA-Z0-9_-]+\/exec$/.test(APPS_SCRIPT_WEB_APP_URL);
 const isGitHubPages=window.location.hostname.endsWith('.github.io');
 if(isGitHubPages){staticNotice.hidden=scriptReady;btn.disabled=!scriptReady;btn.setAttribute('aria-disabled',String(!scriptReady));if(!scriptReady)btn.title='El registro aún no está habilitado en esta versión.';}
