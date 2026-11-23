@@ -1,13 +1,13 @@
 const APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzXpB0cj2a7BR3ZMQ1H7ZOU3Z5D3xrEBMiqUydedPki0mIR8idwBAZubz8INsjyR43M/exec';
 const ENABLE_PUBLIC_REGISTRATION = true;
 
-const form = document.getElementById('registrationForm');
-const formShell = document.getElementById('formShell');
-const successState = document.getElementById('successState');
+const form = document.getElementById('rsvpForm');
+const formShell = document.getElementById('formContent');
+const successState = document.getElementById('success');
 const msg = document.getElementById('formMessage');
-const btn = document.getElementById('submitBtn');
-const submitLabel = document.getElementById('submitLabel');
-const folio = document.getElementById('folio');
+const btn = document.getElementById('sendBtn');
+const submitLabel = document.querySelector('#sendBtn span:first-child');
+const folio = document.getElementById('folioCode');
 
 const isGitHubPages = window.location.hostname.endsWith('.github.io');
 const appsScriptReady = ENABLE_PUBLIC_REGISTRATION &&
@@ -101,6 +101,7 @@ function showSuccess(recordFolio) {
   folio.textContent = recordFolio;
   formShell.hidden = true;
   successState.hidden = false;
+  successState.setAttribute('tabindex', '-1');
   successState.focus();
 }
 
