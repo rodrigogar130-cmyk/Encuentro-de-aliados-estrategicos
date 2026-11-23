@@ -32,6 +32,9 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./sesion_aliados_uaemex_2026/public
+      # Permite que el artefacto se propague antes de que Pages consulte su metadata.
+      - name: Wait for artifact indexing
+        run: sleep 20
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
