@@ -1,22 +1,164 @@
-'use strict';
-const form=document.getElementById('rsvpForm');
-const btn=document.getElementById('sendBtn');
-const msg=document.getElementById('formMessage');
-const success=document.getElementById('success');
-const submitLabel=btn.querySelector('span:first-child');
-const staticNotice=document.getElementById('staticNotice');
-const requiredFields=['nombre','apellidos','empresa','cargo','sector','correo'];
-const errorMessages={nombre:'Ingresa tu nombre.',apellidos:'Ingresa tus apellidos.',empresa:'Ingresa el nombre de tu empresa u organización.',cargo:'Ingresa tu cargo.',sector:'Selecciona un sector.',correo:'Ingresa un correo electrónico válido.',telefono:'Ingresa un teléfono válido o deja este campo vacío.',confirmacion:'Selecciona una opción de asistencia.',privacidad:'Debes aceptar el aviso de privacidad para continuar.'};
-const APPS_SCRIPT_WEB_APP_URL='https://script.google.com/macros/s/AKfycbzXpB0cj2a7BR3ZMQ1H7ZOU3Z5D3xrEBMiqUydedPki0mIR8idwBAZubz8INsjyR43M/exec';
-// Recepción pública habilitada: los datos se envían por POST a Google Apps Script.
-const ENABLE_PUBLIC_REGISTRATION=true;
-const scriptReady=ENABLE_PUBLIC_REGISTRATION&&/^https:\/\/script\.google\.com\/macros\/s\/[a-zA-Z0-9_-]+\/exec$/.test(APPS_SCRIPT_WEB_APP_URL);
-const isGitHubPages=window.location.hostname.endsWith('.github.io');
-if(isGitHubPages){staticNotice.hidden=scriptReady;btn.disabled=!scriptReady;btn.setAttribute('aria-disabled',String(!scriptReady));if(!scriptReady)btn.title='El registro aún no está habilitado en esta versión.';}
-function setFieldError(name,message=''){const error=document.getElementById(`${name}-error`);const source=form.elements[name];const fields=source instanceof RadioNodeList?[...source]:[source];fields.forEach(field=>{if(!field)return;field.setAttribute('aria-invalid',String(Boolean(message)));if(message)field.setAttribute('aria-describedby',`${name}-error`);else field.removeAttribute('aria-describedby');});if(error)error.textContent=message;}
-function fieldIsValid(name){const field=form.elements[name];if(name==='confirmacion')return [...field].some(option=>option.checked);if(name==='privacidad')return field.checked;if(name==='telefono')return !field.value.trim()||/^[\d\s()+.\-]{7,25}$/.test(field.value.trim());return field.checkValidity()&&field.value.trim().length>=2;}
-function validateField(name){const valid=fieldIsValid(name);setFieldError(name,valid?'':errorMessages[name]);return valid;}
-requiredFields.concat(['telefono','privacidad']).forEach(name=>{const field=form.elements[name];if(field)field.addEventListener('blur',()=>validateField(name));});
-[...form.elements.confirmacion].forEach(option=>option.addEventListener('change',()=>validateField('confirmacion')));
-form.elements.privacidad.addEventListener('change',()=>validateField('privacidad'));
-form.addEventListener('submit',async event=>{event.preventDefault();if(isGitHubPages&&!scriptReady)return;const fieldsToValidate=[...requiredFields,'telefono','confirmacion','privacidad'];const invalid=fieldsToValidate.filter(name=>!validateField(name));if(invalid.length){msg.textContent='Revisa los campos señalados antes de continuar.';msg.hidden=false;const first=form.elements[invalid[0]];if(first instanceof RadioNodeList)first[0].focus();else first.focus();return;}btn.disabled=true;btn.classList.add('is-loading');submitLabel.textContent='Guardando respuesta…';msg.hidden=true;if(isGitHubPages){form.action=APPS_SCRIPT_WEB_APP_URL;form.method='POST';form.enctype='application/x-www-form-urlencoded';form.submit();return;}const raw=Object.fromEntries(new FormData(form).entries());raw.privacidad=form.elements.privacidad.checked;try{const response=await fetch('/api/confirmar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(raw)});const out=await response.json().catch(()=>({}));if(!response.ok||!out.ok||!out.folio)throw new Error(out.error||'No fue posible guardar tu confirmación. Intenta nuevamente.');document.getElementById('formContent').hidden=true;success.hidden=false;document.getElementById('folioCode').textContent=out.folio;if(out.confirmacion==='No asistiré'){document.getElementById('successTitle').textContent='Gracias por tu respuesta.';document.getElementById('successCopy').textContent='Hemos registrado que en esta ocasión no podrás asistir. Agradecemos tu atención.';}else{document.getElementById('successCopy').textContent='Tu asistencia a la Sesión de Aliados Estratégicos ha quedado confirmada para el jueves 10 de diciembre a las 17:00 h.';}success.scrollIntoView({behavior:'smooth',block:'center'});}catch(error){msg.textContent=error.message;msg.hidden=false;}finally{btn.disabled=false;btn.classList.remove('is-loading');submitLabel.textContent='Confirmar asistencia';}});
+const APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzXpB0cj2a7BR3ZMQ1H7ZOU3Z5D3xrEBMiqUydedPki0mIR8idwBAZubz8INsjyR43M/exec';
+const ENABLE_PUBLIC_REGISTRATION = true;
+
+const form = document.getElementById('registrationForm');
+const formShell = document.getElementById('formShell');
+const successState = document.getElementById('successState');
+const msg = document.getElementById('formMessage');
+const btn = document.getElementById('submitBtn');
+const submitLabel = document.getElementById('submitLabel');
+const folio = document.getElementById('folio');
+
+const isGitHubPages = window.location.hostname.endsWith('.github.io');
+const appsScriptReady = ENABLE_PUBLIC_REGISTRATION &&
+  /^https:\/\/script\.google\.com\/macros\/s\/[a-zA-Z0-9_-]+\/exec(?:\?.*)?$/.test(APPS_SCRIPT_WEB_APP_URL);
+
+const fields = ['nombre', 'apellidos', 'empresa', 'cargo', 'sector', 'correo'];
+
+function getField(name) {
+  return form.elements.namedItem(name);
+}
+
+function setFieldError(name, message) {
+  const input = getField(name);
+  const error = document.getElementById(`${name}-error`);
+  if (input instanceof RadioNodeList) {
+    [...input].forEach((node) => node.setAttribute('aria-invalid', String(Boolean(message))));
+  } else if (input) {
+    input.setAttribute('aria-invalid', String(Boolean(message)));
+  }
+  if (error) error.textContent = message || '';
+}
+
+function fieldIsValid(name) {
+  const input = getField(name);
+  return input && String(input.value || '').trim().length > 0;
+}
+
+function validateForm() {
+  let valid = true;
+  fields.forEach((name) => {
+    const input = getField(name);
+    const label = input?.closest('.field')?.querySelector('label')?.textContent?.replace('*', '').trim() || name;
+    if (!fieldIsValid(name)) {
+      setFieldError(name, `Ingresa ${label.toLowerCase()}.`);
+      valid = false;
+    } else {
+      setFieldError(name, '');
+    }
+  });
+
+  const email = String(getField('correo')?.value || '').trim();
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    setFieldError('correo', 'Ingresa un correo electrónico válido.');
+    valid = false;
+  }
+
+  const phone = String(getField('telefono')?.value || '').trim();
+  if (phone && !/^[\d\s()+.\-]{7,25}$/.test(phone)) {
+    setFieldError('telefono', 'Ingresa un teléfono válido o déjalo vacío.');
+    valid = false;
+  } else {
+    setFieldError('telefono', '');
+  }
+
+  const confirmation = getField('confirmacion');
+  if (!confirmation || ![...confirmation].some((option) => option.checked)) {
+    setFieldError('confirmacion', 'Selecciona una opción de asistencia.');
+    valid = false;
+  } else {
+    setFieldError('confirmacion', '');
+  }
+
+  const privacy = getField('privacidad');
+  if (!privacy?.checked) {
+    setFieldError('privacidad', 'Debes aceptar el aviso de privacidad para continuar.');
+    valid = false;
+  } else {
+    setFieldError('privacidad', '');
+  }
+
+  return valid;
+}
+
+function setLoading(loading, label) {
+  btn.disabled = loading;
+  btn.classList.toggle('is-loading', loading);
+  submitLabel.textContent = label;
+}
+
+function showMessage(text) {
+  msg.textContent = text;
+  msg.hidden = false;
+}
+
+function clearMessage() {
+  msg.textContent = '';
+  msg.hidden = true;
+}
+
+function showSuccess(recordFolio) {
+  folio.textContent = recordFolio;
+  formShell.hidden = true;
+  successState.hidden = false;
+  successState.focus();
+}
+
+form.addEventListener('input', (event) => {
+  const target = event.target;
+  if (target.name) setFieldError(target.name, '');
+  clearMessage();
+});
+
+form.addEventListener('change', (event) => {
+  const target = event.target;
+  if (target.name) setFieldError(target.name, '');
+  clearMessage();
+});
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  clearMessage();
+
+  if (!validateForm()) {
+    showMessage('Revisa los campos marcados antes de enviar tu respuesta.');
+    form.querySelector('[aria-invalid="true"]')?.focus();
+    return;
+  }
+
+  if (isGitHubPages) {
+    if (!appsScriptReady) {
+      showMessage('La recepción de registros requiere configuración por parte del equipo organizador.');
+      return;
+    }
+
+    setLoading(true, 'Enviando confirmación…');
+    form.action = APPS_SCRIPT_WEB_APP_URL;
+    form.method = 'POST';
+    form.enctype = 'application/x-www-form-urlencoded';
+    form.submit();
+    return;
+  }
+
+  setLoading(true, 'Guardando respuesta…');
+  try {
+    const payload = Object.fromEntries(new FormData(form).entries());
+    payload.privacidad = Boolean(form.elements.privacidad.checked);
+
+    const response = await fetch('/api/confirmar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const output = await response.json();
+
+    if (!response.ok || !output.ok || !output.folio) {
+      throw new Error(output.message || 'No pudimos registrar tu respuesta.');
+    }
+
+    showSuccess(output.folio);
+  } catch (error) {
+    showMessage(error.message || 'No pudimos registrar tu respuesta. Intenta nuevamente.');
+    setLoading(false, 'Confirmar asistencia');
+  }
+});

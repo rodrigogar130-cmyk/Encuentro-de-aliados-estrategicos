@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101110">
-  <meta name="description" content="Confirma tu asistencia a la Sesión de Aliados Estratégicos de la Dirección de Desarrollo Empresarial, 10 de diciembre de 2026.">
+  <meta name="theme-color" content="#111312">
+  <meta name="description" content="Confirma tu asistencia a la Sesión de Aliados Estratégicos de la Dirección de Desarrollo Empresarial, el 10 de diciembre de 2026.">
   <title>Confirmación de asistencia | Sesión de Aliados Estratégicos</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,57 +12,103 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="topline" aria-hidden="true"></div>
-  <header class="site-header wrap">
-    <p>Registro de asistencia</p>
-    <span>10 de diciembre de 2026</span>
-  </header>
-  <main class="wrap main-grid">
-    <section class="event-overview" aria-labelledby="title">
-      <p class="eyebrow">Encuentro institucional · 2026</p>
-      <h1 id="title">Sesión de Aliados Estratégicos<span aria-hidden="true">.</span></h1>
-      <p class="intro">Fortaleciendo alianzas estratégicas con la Dirección de Desarrollo Empresarial para impulsar nuevas oportunidades.</p>
-      <dl class="event-details">
-        <div><dt>Fecha</dt><dd>Jueves 10 de diciembre de 2026</dd></div>
-        <div><dt>Recepción</dt><dd>17:00 h</dd></div>
-        <div class="venue-detail"><dt>Ubicación</dt><dd>Edificio UAEMitas, piso 5<br><span>Toluca, Estado de México</span></dd><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=Edificio+UAEMitas+piso+5+Leona+Vicario+201+Toluca" target="_blank" rel="noopener noreferrer">Ver ubicación</a></div>
-      </dl>
-      <details class="invitation"><summary>Consultar la invitación oficial</summary><img src="flyer.webp" alt="Invitación de la Sesión de Aliados Estratégicos: 10 de diciembre de 2026, 17:00 h, Edificio UAEMitas, piso 5." loading="lazy"></details>
-    </section>
-    <section class="form-shell" aria-labelledby="register-title">
-      <div class="form-header"><p>Confirmación de asistencia</p><span aria-hidden="true">2026</span></div>
-      <div class="form-content" id="formContent">
-        <h2 id="register-title">Confirma tu participación.</h2>
-        <p class="form-copy">Completa tus datos para confirmar tu asistencia a este encuentro institucional.</p>
-        <div class="static-notice" id="staticNotice" role="status" hidden><strong>Registro no habilitado en esta versión.</strong><span>La confirmación de asistencia estará disponible cuando el servicio de registro se encuentre publicado.</span></div>
-        <form id="rsvpForm" autocomplete="on" novalidate>
-          <div class="honeypot" aria-hidden="true"><label>Sitio web <input name="pagina_web" tabindex="-1" autocomplete="off"></label></div>
-          <div class="field-row">
-            <div class="field"><label for="nombre">Nombre(s) <b aria-hidden="true">*</b></label><input id="nombre" name="nombre" autocomplete="given-name" maxlength="80" required placeholder="Tu nombre"><p class="field-error" id="nombre-error"></p></div>
-            <div class="field"><label for="apellidos">Apellidos <b aria-hidden="true">*</b></label><input id="apellidos" name="apellidos" autocomplete="family-name" maxlength="90" required placeholder="Tus apellidos"><p class="field-error" id="apellidos-error"></p></div>
-          </div>
-          <div class="field"><label for="empresa">Empresa u organización <b aria-hidden="true">*</b></label><input id="empresa" name="empresa" autocomplete="organization" maxlength="140" required placeholder="Nombre de la institución o empresa"><p class="field-error" id="empresa-error"></p></div>
-          <div class="field-row">
-            <div class="field"><label for="cargo">Cargo <b aria-hidden="true">*</b></label><input id="cargo" name="cargo" autocomplete="organization-title" maxlength="100" required placeholder="Tu puesto"><p class="field-error" id="cargo-error"></p></div>
-            <div class="field"><label for="sector">Sector <b aria-hidden="true">*</b></label><select id="sector" name="sector" required><option value="">Selecciona una opción</option><option>Empresa privada</option><option>Organismo empresarial</option><option>Institución pública</option><option>Institución educativa</option><option>Organización civil</option><option>Emprendimiento</option><option>Otro</option></select><p class="field-error" id="sector-error"></p></div>
-          </div>
-          <div class="field-row">
-            <div class="field"><label for="correo">Correo electrónico <b aria-hidden="true">*</b></label><input id="correo" name="correo" type="email" maxlength="180" autocomplete="email" required placeholder="nombre@empresa.com"><p class="field-error" id="correo-error"></p></div>
-            <div class="field"><label for="telefono">Teléfono <small>(opcional)</small></label><input id="telefono" name="telefono" type="tel" maxlength="25" autocomplete="tel" placeholder="722 000 0000"><p class="field-error" id="telefono-error"></p></div>
-          </div>
-          <fieldset class="rsvp-choice"><legend>¿Nos acompañarás? <b aria-hidden="true">*</b></legend><div class="choice-grid"><label class="choice"><input type="radio" name="confirmacion" value="Confirmada" required><span class="choice-inner"><strong>Sí, asistiré</strong><small>Confirmar mi participación</small></span></label><label class="choice"><input type="radio" name="confirmacion" value="No asistiré" required><span class="choice-inner"><strong>No podré asistir</strong><small>Agradezco la invitación</small></span></label></div><p class="field-error" id="confirmacion-error"></p></fieldset>
-          <div class="field notes-field"><label for="observaciones">Comentarios <small>(opcional)</small></label><textarea id="observaciones" name="observaciones" maxlength="320" rows="3" placeholder="Algo que desees compartir con el equipo organizador"></textarea></div>
-          <label class="privacy"><input type="checkbox" id="privacidad" name="privacidad" required><span>He leído el <a href="aviso-privacidad.html" target="_blank" rel="noopener noreferrer">aviso de privacidad</a> y autorizo el uso de mis datos para gestionar la confirmación de asistencia. <b aria-hidden="true">*</b></span></label>
-          <p class="field-error privacy-error" id="privacidad-error"></p>
-          <div class="message" id="formMessage" role="alert" aria-live="assertive" hidden></div>
-          <button id="sendBtn" class="submit-btn" type="submit"><span>Confirmar asistencia</span><span class="button-loader" aria-hidden="true"></span></button>
-          <p class="form-bottom">Tus datos se utilizarán exclusivamente para la organización del encuentro.</p>
-        </form>
-      </div>
-      <div class="success" id="success" role="status" aria-live="polite" hidden><div class="success-mark" aria-hidden="true">✓</div><p class="form-kicker">Respuesta registrada</p><h2 id="successTitle">Confirmación recibida.</h2><p id="successCopy">Gracias por responder a nuestra invitación.</p><div class="folio-box"><small>Tu folio de registro</small><strong id="folioCode"></strong></div><p class="success-note">Guarda este folio como comprobante de registro.</p><button type="button" class="secondary-btn" onclick="window.print()">Imprimir comprobante</button><a href="./" class="text-link back-link">Volver al inicio</a></div>
-    </section>
-  </main>
-  <footer class="footer wrap"><div><strong>Dirección de Desarrollo Empresarial</strong><p>Universidad Autónoma del Estado de México</p></div><span>Administración Universitaria 2025–2029</span></footer>
+  <div class="page-frame">
+    <header class="site-header container">
+      <p class="site-label">Dirección de Desarrollo Empresarial</p>
+      <p class="site-date">10 de diciembre de 2026</p>
+    </header>
+
+    <main class="container registration-layout">
+      <section class="event-hero" aria-labelledby="event-title">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Encuentro institucional · 2026</p>
+          <h1 id="event-title">Sesión de Aliados Estratégicos<span aria-hidden="true">.</span></h1>
+          <p class="hero-intro">Fortaleciendo alianzas estratégicas con la Dirección de Desarrollo Empresarial para impulsar nuevas oportunidades.</p>
+
+          <dl class="event-details">
+            <div>
+              <dt>Fecha</dt>
+              <dd>Jueves 10 de diciembre de 2026</dd>
+            </div>
+            <div>
+              <dt>Recepción</dt>
+              <dd>17:00 h</dd>
+            </div>
+            <div class="venue-detail">
+              <dt>Ubicación</dt>
+              <dd>Edificio UAEMitas, piso 5 <span>· Toluca, Estado de México</span></dd>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Edificio+UAEMitas+piso+5+Leona+Vicario+201+Toluca" target="_blank" rel="noopener noreferrer">Ver ubicación</a>
+            </div>
+          </dl>
+
+          <details class="invitation">
+            <summary>Consultar la invitación oficial</summary>
+            <img src="flyer.webp" alt="Invitación de la Sesión de Aliados Estratégicos: 10 de diciembre de 2026, 17:00 h, Edificio UAEMitas, piso 5." loading="lazy">
+          </details>
+        </div>
+      </section>
+
+      <section class="form-panel" aria-labelledby="register-title">
+        <div class="form-topline"><span>Confirmación de asistencia</span><span aria-hidden="true">2026</span></div>
+        <div class="form-content" id="formContent">
+          <p class="form-eyebrow">Registro para invitados</p>
+          <h2 id="register-title">Confirma tu participación.</h2>
+          <p class="form-copy">Completa tus datos para confirmar tu asistencia a este encuentro institucional.</p>
+
+          <form id="rsvpForm" autocomplete="on" novalidate>
+            <div class="honeypot" aria-hidden="true"><label>Sitio web <input name="pagina_web" tabindex="-1" autocomplete="off"></label></div>
+
+            <div class="field-row">
+              <div class="field"><label for="nombre">Nombre(s) <b aria-hidden="true">*</b></label><input id="nombre" name="nombre" autocomplete="given-name" maxlength="80" required placeholder="Tu nombre"><p class="field-error" id="nombre-error"></p></div>
+              <div class="field"><label for="apellidos">Apellidos <b aria-hidden="true">*</b></label><input id="apellidos" name="apellidos" autocomplete="family-name" maxlength="90" required placeholder="Tus apellidos"><p class="field-error" id="apellidos-error"></p></div>
+            </div>
+
+            <div class="field"><label for="empresa">Empresa u organización <b aria-hidden="true">*</b></label><input id="empresa" name="empresa" autocomplete="organization" maxlength="140" required placeholder="Nombre de la institución o empresa"><p class="field-error" id="empresa-error"></p></div>
+
+            <div class="field-row">
+              <div class="field"><label for="cargo">Cargo <b aria-hidden="true">*</b></label><input id="cargo" name="cargo" autocomplete="organization-title" maxlength="100" required placeholder="Tu puesto"><p class="field-error" id="cargo-error"></p></div>
+              <div class="field"><label for="sector">Sector <b aria-hidden="true">*</b></label><select id="sector" name="sector" required><option value="">Selecciona una opción</option><option>Empresa privada</option><option>Organismo empresarial</option><option>Institución pública</option><option>Institución educativa</option><option>Organización civil</option><option>Emprendimiento</option><option>Otro</option></select><p class="field-error" id="sector-error"></p></div>
+            </div>
+
+            <div class="field-row">
+              <div class="field"><label for="correo">Correo electrónico <b aria-hidden="true">*</b></label><input id="correo" name="correo" type="email" maxlength="180" autocomplete="email" required placeholder="nombre@empresa.com"><p class="field-error" id="correo-error"></p></div>
+              <div class="field"><label for="telefono">Teléfono <small>(opcional)</small></label><input id="telefono" name="telefono" type="tel" maxlength="25" autocomplete="tel" placeholder="722 000 0000"><p class="field-error" id="telefono-error"></p></div>
+            </div>
+
+            <fieldset class="rsvp-choice">
+              <legend>¿Nos acompañarás? <b aria-hidden="true">*</b></legend>
+              <div class="choice-grid">
+                <label class="choice"><input type="radio" name="confirmacion" value="Confirmada" required><span class="choice-inner"><strong>Sí, asistiré</strong><small>Confirmar mi participación</small></span></label>
+                <label class="choice"><input type="radio" name="confirmacion" value="No asistiré" required><span class="choice-inner"><strong>No podré asistir</strong><small>Agradezco la invitación</small></span></label>
+              </div>
+              <p class="field-error" id="confirmacion-error"></p>
+            </fieldset>
+
+            <div class="field"><label for="observaciones">Comentarios <small>(opcional)</small></label><textarea id="observaciones" name="observaciones" maxlength="320" rows="3" placeholder="Algo que desees compartir con el equipo organizador"></textarea></div>
+            <label class="privacy"><input type="checkbox" id="privacidad" name="privacidad" required><span>He leído el <a href="aviso-privacidad.html" target="_blank" rel="noopener noreferrer">aviso de privacidad</a> y autorizo el uso de mis datos para gestionar la confirmación de asistencia. <b aria-hidden="true">*</b></span></label>
+            <p class="field-error privacy-error" id="privacidad-error"></p>
+            <div class="message" id="formMessage" role="alert" aria-live="assertive" hidden></div>
+            <button id="sendBtn" class="submit-btn" type="submit"><span>Confirmar asistencia</span><span class="button-loader" aria-hidden="true"></span></button>
+            <p class="form-bottom">Tus datos se utilizarán exclusivamente para la organización del encuentro.</p>
+          </form>
+        </div>
+
+        <div class="success" id="success" role="status" aria-live="polite" hidden>
+          <div class="success-mark" aria-hidden="true">✓</div>
+          <p class="form-eyebrow">Respuesta registrada</p>
+          <h2 id="successTitle">Confirmación recibida.</h2>
+          <p id="successCopy">Gracias por responder a nuestra invitación.</p>
+          <div class="folio-box"><small>Tu folio de registro</small><strong id="folioCode"></strong></div>
+          <p class="success-note">Guarda este folio como comprobante de registro.</p>
+          <button type="button" class="secondary-btn" onclick="window.print()">Imprimir comprobante</button>
+          <a href="./" class="back-link">Volver al inicio</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer container"><div><strong>Dirección de Desarrollo Empresarial</strong><p>Universidad Autónoma del Estado de México</p></div><span>Administración Universitaria 2025–2029</span></footer>
+  </div>
   <script defer src="app.js"></script>
 </body>
 </html>
